@@ -10,11 +10,12 @@ const getProducts = async () => {
 
 const Home = () => {
   const [category, setCategory] = useState();
+  const [isCategory, setIsCategory] = useState(false);
   const { data, status } = useQuery("products", getProducts);
-
+  console.log(isCategory);
   return (
     <>
-      <Navbar setCategory={setCategory} />
+      <Navbar setCategory={setCategory} setIsCategory={setIsCategory} />
     </>
   );
 };

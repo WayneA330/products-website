@@ -33,9 +33,10 @@ const getAllCategories = async () => {
   return res.json();
 };
 
-const Navbar = ({ setCategory }) => {
+const Navbar = ({ setCategory, setIsCategory }) => {
   const { data } = useQuery("All-categories", getAllCategories);
   const [selected, setSelected] = useState();
+  console.log(selected);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const classes = useStyles();
@@ -50,6 +51,11 @@ const Navbar = ({ setCategory }) => {
 
   const selectedCategory = (value) => {
     setSelected(value);
+    if (value === "Category") {
+      setIsCategory(false);
+    } else {
+      setIsCategory(true);
+    }
     handleClose();
   };
 
