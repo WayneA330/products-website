@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   AppBar,
@@ -34,10 +34,10 @@ const getAllCategories = async () => {
 };
 
 const Navbar = ({ setCategory }) => {
-  const { data } = useQuery("categories", getAllCategories);
+  const { data } = useQuery("All-categories", getAllCategories);
   const [selected, setSelected] = useState();
-  setCategory(selected);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const classes = useStyles();
 
   const handleClick = (event) => {
@@ -52,6 +52,13 @@ const Navbar = ({ setCategory }) => {
     setSelected(value);
     handleClose();
   };
+
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/category/${selected}`)
+      .then((res) => res.json())
+      .then((data) => setCategory(data.products));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
 
   const open = Boolean(anchorEl);
 
@@ -89,7 +96,7 @@ const Navbar = ({ setCategory }) => {
               Default
             </MenuItem>
             {data === undefined
-              ? console.log("No data was fetched yet")
+              ? null
               : data.map((item, idx) => (
                   <MenuItem onClick={() => selectedCategory(item)} key={idx}>
                     {item.toUpperCase()}
