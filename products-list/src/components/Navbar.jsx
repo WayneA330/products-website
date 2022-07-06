@@ -1,20 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import { KeyboardArrowDown } from "@mui/icons-material";
+import { useQuery } from "react-query";
 
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "beige",
+    display: "flex",
+    justifyContent: "space-between",
   },
   navbar_title: {
     color: "black",
     fontSize: "20px !important",
   },
+  category_btn: {
+    color: "black !important",
+  },
+  menu_category: {},
 });
 
-const Navbar = () => {
+const getAllCategories = async () => {
+  const res = await fetch("https://dummyjson.com/products/categories");
+  return res.json();
+};
+
+const Navbar = ({ setCategory }) => {
+  const { data } = useQuery("categories", getAllCategories);
+  const [selected, setSelected] = useState();
+  setCategory(selected);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const selectedCategory = (value) => {
+    setSelected(value);
+    handleClose();
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <>
@@ -25,6 +64,38 @@ const Navbar = () => {
               Product Center
             </Link>
           </Typography>
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            className={classes.category_btn}
+            onClick={handleClick}
+          >
+            {selected === undefined ? "Category" : selected}
+            {<KeyboardArrowDown />}
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+            className={classes.menu_category}
+          >
+            <MenuItem onClick={() => selectedCategory("Category")}>
+              Default
+            </MenuItem>
+            {data === undefined
+              ? console.log("No data was fetched yet")
+              : data.map((item, idx) => (
+                  <MenuItem onClick={() => selectedCategory(item)} key={idx}>
+                    {item.toUpperCase()}
+                  </MenuItem>
+                ))}
+          </Menu>
         </Toolbar>
       </AppBar>
     </>

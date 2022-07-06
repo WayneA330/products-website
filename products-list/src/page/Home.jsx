@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -9,12 +9,12 @@ const getProducts = async () => {
 };
 
 const Home = () => {
-  const { data, status } = useQuery("planets", getProducts);
-  console.log(data);
+  const [category, setCategory] = useState();
+  const { data, status } = useQuery("products", getProducts);
 
   return (
     <>
-      <Navbar />
+      <Navbar setCategory={setCategory} />
     </>
   );
 };
