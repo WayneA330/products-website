@@ -13,6 +13,7 @@ const Home = () => {
   const [isCategory, setIsCategory] = useState(false);
   const { data, status } = useQuery("products", getProducts);
   console.log(isCategory);
+
   return (
     <>
       <Navbar setCategory={setCategory} setIsCategory={setIsCategory} />
