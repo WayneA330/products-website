@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import {
-  AppBar,
-  Button,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from "@mui/material";
 import { Link } from "react-router-dom";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useQuery } from "react-query";
@@ -36,8 +34,7 @@ const getAllCategories = async () => {
 const Navbar = ({ setCategory, setIsCategory }) => {
   const { data } = useQuery("All-categories", getAllCategories);
   const [selected, setSelected] = useState();
-  console.log(selected);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const classes = useStyles();
 
