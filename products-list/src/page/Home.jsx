@@ -1,8 +1,11 @@
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import ItemCards from "../components/Cards";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 
@@ -13,10 +16,15 @@ const useStyles = makeStyles({
     margin: "auto",
     marginTop: "3rem",
   },
+  card_container: {
+    width: "98%",
+    margin: "auto",
+    height: "fit-content",
+  },
 });
 
 const getProducts = async () => {
-  const res = await fetch("https://dummyjson.com/products");
+  const res = await fetch("https://dummyjson.com/products?limit=50");
   return res.json();
 };
 
@@ -25,6 +33,7 @@ const Home = () => {
   const [category, setCategory] = useState();
   const [isCategory, setIsCategory] = useState(false);
   const { data, status } = useQuery("products", getProducts);
+  console.log(data);
   const classes = useStyles();
   return (
     <>
@@ -36,6 +45,23 @@ const Home = () => {
         </Typography>
       </div>
       <Search setSearchValue={setSearchValue} />
+      {/* Data Render */}
+      <div>
+        {status === "error" && alert("There was an error fetching the data.")}
+
+        <Box className={classes.card_container}>
+          <Grid container spacing={2}>
+            {!isCategory ? (
+              status === "success" &&
+              data.products.map((items) => (
+                <ItemCards key={items.id} data={items} />
+              ))
+            ) : (
+              <p>Data of category chosen</p>
+            )}
+          </Grid>
+        </Box>
+      </div>
     </>
   );
 };

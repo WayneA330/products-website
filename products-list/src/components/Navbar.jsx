@@ -59,7 +59,8 @@ const Navbar = ({ setCategory, setIsCategory }) => {
   useEffect(() => {
     fetch(`https://dummyjson.com/products/category/${selected}`)
       .then((res) => res.json())
-      .then((data) => setCategory(data.products));
+      .then((data) => setCategory(data.products))
+      .catch((err) => console.log(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
