@@ -59,7 +59,9 @@ const Home = () => {
       <Search setSearchValue={setSearchValue} />
       {/* Data Render */}
       <div>
+        {/* If error */}
         {status === "error" && <ModalError />}
+        {/* While loading */}
         {status === "loading" && (
           <CircularProgress className={classes.loading} />
         )}
