@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
+import Skeleton from "@mui/material/Skeleton";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 
@@ -17,11 +18,6 @@ const useStyles = makeStyles({
       height: "150px",
     },
   },
-  //   details: {
-  //     display: "flex",
-  //     flexDirection: "column",
-  //     alignItems: '',
-  //   },
 });
 
 const ItemCards = ({ data }) => {
@@ -41,23 +37,32 @@ const ItemCards = ({ data }) => {
             <Typography gutterBottom variant="h6" component="div">
               {data?.title}
             </Typography>
-            <div className={classes.details}>
-              <div>
-                <Typography
-                  variant="body2"
-                  color="black"
-                  sx={{ marginTop: "15px" }}
-                >
-                  {data?.description}
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="body2" color="black">
-                  {data?.price}
-                </Typography>
-                <Typography variant="body2" color="black">
-                  {data?.stock}
-                </Typography>
+            <div>
+              <Typography
+                variant="body2"
+                color="black"
+                sx={{ marginTop: "5px" }}
+              >
+                {data?.description}
+              </Typography>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                }}
+              >
+                <div>
+                  <Typography
+                    variant="body1"
+                    color="black"
+                    className={classes.bottom_details}
+                  >
+                    In stock: {data?.stock}
+                  </Typography>
+                  <Typography variant="h6" color="black">
+                    ${data?.price}
+                  </Typography>
+                </div>
               </div>
             </div>
           </CardContent>
