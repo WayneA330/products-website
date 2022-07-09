@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 import ItemCards from "../components/Cards";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -41,13 +40,14 @@ const Home = () => {
   const [category, setCategory] = useState();
   const [isCategory, setIsCategory] = useState(false);
   const { data, status } = useQuery("products", getProducts);
-  console.log(data);
+
   const classes = useStyles();
 
   return (
     <>
       {/* Navbar */}
       <Navbar setCategory={setCategory} setIsCategory={setIsCategory} />
+
       {/* Title Text */}
       <div className={classes.title_text}>
         <Typography variant="h5">
@@ -55,8 +55,10 @@ const Home = () => {
           FOUND HERE AT PRODUCT CENTER.
         </Typography>
       </div>
+
       {/* Search */}
       <Search setSearchValue={setSearchValue} />
+
       {/* Data Render */}
       <div>
         {/* If error */}
