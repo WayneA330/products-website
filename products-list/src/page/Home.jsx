@@ -63,6 +63,7 @@ const Home = () => {
       <div>
         {/* If error */}
         {status === "error" && <ModalError />}
+
         {/* While loading */}
         {status === "loading" && (
           <CircularProgress className={classes.loading} />

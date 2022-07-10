@@ -5,6 +5,9 @@ import React from "react";
 const useStyles = makeStyles({
   search_textfield: {
     width: "50vw",
+    "@media (max-width: 400px)": {
+      width: "70vw",
+    },
   },
   search_container: {
     margin: "3rem auto",
