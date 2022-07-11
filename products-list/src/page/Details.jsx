@@ -71,7 +71,7 @@ const Details = () => {
 
   const data = location.state;
   const pictures = data.images;
-  let reviews = "";
+  let reviews;
   if (reviewsItem === undefined) {
     return null;
   } else {

@@ -37,13 +37,19 @@ const getProducts = async () => {
 };
 
 const Home = () => {
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState();
   const [isCategory, setIsCategory] = useState(false);
-  const { data, status } = useQuery("products", getProducts);
+  const { data, status, isLoading } = useQuery("products", getProducts);
+  const classes = useStyles();
 
   console.log(category);
-  const classes = useStyles();
+  let products_arr;
+  if (data === undefined) {
+    return null;
+  } else {
+    products_arr = data.products;
+  }
 
   return (
     <>
@@ -74,14 +80,34 @@ const Home = () => {
         <Box className={classes.card_container}>
           <Grid container spacing={2}>
             {!isCategory
-              ? status === "success" &&
-                data.products.map((items) => (
-                  <ItemCards key={items.id} data={items} />
-                ))
-              : status === "success" &&
-                category.map((items) => (
-                  <CategoryItemCards key={items.id} data={items} />
-                ))}
+              ? // All Cards
+                status === "success" &&
+                products_arr
+                  .filter((item) => {
+                    if (searchValue === "") {
+                      return item;
+                    } else {
+                      return item.title
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase());
+                    }
+                  })
+                  .map((items) => <ItemCards key={items.id} data={items} />)
+              : // Chosen Category Cards
+                status === "success" &&
+                category
+                  .filter((item) => {
+                    if (searchValue === "") {
+                      return item;
+                    } else {
+                      return item.title
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase());
+                    }
+                  })
+                  .map((items) => (
+                    <CategoryItemCards key={items.id} data={items} />
+                  ))}
           </Grid>
         </Box>
       </div>
