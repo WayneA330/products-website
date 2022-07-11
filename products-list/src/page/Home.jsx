@@ -40,16 +40,8 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState();
   const [isCategory, setIsCategory] = useState(false);
-  const { data, status, isLoading } = useQuery("products", getProducts);
+  const { data, status } = useQuery("products", getProducts);
   const classes = useStyles();
-
-  console.log(category);
-  let products_arr;
-  if (data === undefined) {
-    return null;
-  } else {
-    products_arr = data.products;
-  }
 
   return (
     <>
@@ -82,7 +74,7 @@ const Home = () => {
             {!isCategory
               ? // All Cards
                 status === "success" &&
-                products_arr
+                data.products
                   .filter((item) => {
                     if (searchValue === "") {
                       return item;
