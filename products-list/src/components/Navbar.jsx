@@ -23,7 +23,6 @@ const useStyles = makeStyles({
   category_btn: {
     color: "black !important",
   },
-  menu_category: {},
 });
 
 const getAllCategories = async () => {

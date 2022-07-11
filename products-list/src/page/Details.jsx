@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import { useQuery } from "react-query";
 import { blue } from "@mui/material/colors";
+import NormalNavbar from "../components/NormalNavbar";
 
 const useStyles = makeStyles({
   img_container: {
@@ -77,8 +78,6 @@ const Details = () => {
     reviews = reviewsItem.data.comments;
   }
 
-  console.log(reviews);
-
   const handleChange = (event) => {
     setAmount(event.target.value);
   };
@@ -96,6 +95,7 @@ const Details = () => {
 
   return (
     <>
+      <NormalNavbar />
       <Typography className={classes.details_title} variant="h4">
         {data.title}
       </Typography>
@@ -194,7 +194,7 @@ const Details = () => {
               >
                 Reviews
               </Typography>
-              {/* Reviews List */}
+              {/* Review */}
               {reviewsItem === undefined
                 ? null
                 : reviews.map((review) => (
