@@ -87,10 +87,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// eslint-disable-next-line
-{
-  /* <Link to={`${item}-${id}`} state={mock}>
-Go to product details
-</Link> */
-}
