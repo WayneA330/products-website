@@ -65,12 +65,21 @@ const Navbar = ({ setCategory, setIsCategory }) => {
 
   const open = Boolean(anchorEl);
 
+  const homeLink = () => {
+    setIsCategory(false);
+    setSelected("Category");
+  };
+
   return (
     <>
       <AppBar position="static">
         <Toolbar className={classes.navbar}>
           <Typography className={classes.navbar_title}>
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            <Link
+              to="/"
+              style={{ textDecoration: "none", color: "black" }}
+              onClick={homeLink}
+            >
               Product Center
             </Link>
           </Typography>

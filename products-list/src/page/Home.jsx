@@ -9,6 +9,7 @@ import ItemCards from "../components/Cards";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import ModalError from "../components/ModalError";
+import CategoryItemCards from "../components/CategoryItemCards";
 
 const useStyles = makeStyles({
   title_text: {
@@ -41,6 +42,7 @@ const Home = () => {
   const [isCategory, setIsCategory] = useState(false);
   const { data, status } = useQuery("products", getProducts);
 
+  console.log(category);
   const classes = useStyles();
 
   return (
@@ -71,14 +73,15 @@ const Home = () => {
 
         <Box className={classes.card_container}>
           <Grid container spacing={2}>
-            {!isCategory ? (
-              status === "success" &&
-              data.products.map((items) => (
-                <ItemCards key={items.id} data={items} />
-              ))
-            ) : (
-              <p>Data of category chosen</p>
-            )}
+            {!isCategory
+              ? status === "success" &&
+                data.products.map((items) => (
+                  <ItemCards key={items.id} data={items} />
+                ))
+              : status === "success" &&
+                category.map((items) => (
+                  <CategoryItemCards key={items.id} data={items} />
+                ))}
           </Grid>
         </Box>
       </div>
